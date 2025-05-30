@@ -98,11 +98,11 @@ docker-compose restart api
 
 ## Dokumentasi
 
-![Logistic Regression](/steamdataset/img/LRmodel.png)
+![Logistic Regression](/img/LRmodel.png)
 
-![GBTClassifier](/steamdataset/img/GBTClassifiermodel.png)
+![GBTClassifier](/img/GBTClassifiermodel.png)
 
-![ALSmodel](/steamdataset/img/ALSmodel.png)
+![ALSmodel](/img/ALSmodel.png)
 
 
 
