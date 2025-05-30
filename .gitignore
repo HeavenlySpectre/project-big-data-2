@@ -1,0 +1,202 @@
+# ═══════════════════════════════════════════════════════════════
+# Steam Recommendation System - GitHub Repository .gitignore
+# ═══════════════════════════════════════════════════════════════
+
+# ─────────────────────────────── PYTHON ────────────────────────────────
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env
+
+# ─────────────────────────────── DATA FILES (>100MB) ────────────────────────────
+# Large CSV files and datasets
+data/
+data.zip
+*.csv
+!games.csv
+# Exception: Keep games.csv as it's under 5MB and needed for reference
+
+# Specific large files
+recs_5m.csv
+recommendations.csv
+realrecommendations.csv
+users.csv
+
+# Compressed data archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# ─────────────────────────────── TESTING & DEVELOPMENT ────────────────────────────
+# Testing scripts (not needed for production)
+test_*.py
+test_*.sh
+*_test.py
+
+# Development-only preprocessing (not needed for Docker deployment)
+# cutcsv.py - Keep for reference but commented out
+# preprocess_data.py - Keep as it might be needed for data preparation
+
+# Postman collections (development only)
+postman_collection.json
+postman_enhanced_collection.json
+
+# Development documentation
+plan.md
+ENHANCED_TESTING_GUIDE.md
+*.md
+!README.md
+!DEPLOYMENT.md
+!DOCKER_SETUP.md
+
+# ─────────────────────────────── IDE & EDITORS ────────────────────────────
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ─────────────────────────────── SYSTEM & LOGS ────────────────────────────
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Log files
+*.log
+logs/
+log/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# ─────────────────────────────── DOCKER & CONTAINERS ────────────────────────────
+# Docker volumes and data
+volumes/
+docker-data/
+
+# Docker build cache (but keep Dockerfiles)
+.docker/
+
+# ─────────────────────────────── SECRETS & CONFIG ────────────────────────────
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+
+# API keys and secrets
+secrets/
+*.key
+*.pem
+*.p12
+*.jks
+
+# Configuration with sensitive data
+config.json
+settings.json
+
+# ─────────────────────────────── MODELS & CHECKPOINTS ────────────────────────────
+# Machine learning models (if large)
+models/
+*.pkl
+*.joblib
+*.model
+*.h5
+*.pb
+
+# Model checkpoints
+checkpoints/
+*.ckpt
+
+# ─────────────────────────────── HADOOP & SPARK ────────────────────────────
+# Hadoop logs and temp files
+hadoop-logs/
+*.out
+
+# Spark temporary files
+spark-warehouse/
+metastore_db/
+derby.log
+
+# ─────────────────────────────── KAFKA & STREAMING ────────────────────────────
+# Kafka logs and data
+kafka-logs/
+kafka-data/
+
+# ─────────────────────────────── MISC ────────────────────────────────
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Archive files
+*.tar
+*.gz
+
+# This .gitignore file itself should not be tracked if modified locally
+# .gitignore

@@ -80,12 +80,11 @@ def shutdown_event():
 
 # ----- Pydantic Models for Request/Response -----
 class FeaturesRequest(BaseModel):
-    # Coba asumsikan 'features' adalah dict, dan kita hanya pakai 'hours'
-    # Jika fitur lebih kompleks, model ini dan logika prediksi perlu diubah
-    features: Dict[str, float] # Contoh: {"hours": 5.5}
+    # Enhanced features for Phase 1 models
+    features: Dict[str, float]  # Example: {"hours": 5.5, "price": 19.99, "positive_ratio": 85.0}
 
 class ProbabilityResponse(BaseModel):
-    probability: float # Coba probabilitas kelas 1 (misal, 'is_recommended')
+    probability: float # Probability of recommendation (0.0 to 1.0)
 
 class RecommendationItem(BaseModel):
     app_id: int
@@ -95,21 +94,34 @@ class RecommendationItem(BaseModel):
 def predict_classification(model, features_dict: Dict[str, float], spark_session):
     if not model:
         raise HTTPException(status_code=503, detail="Model not loaded.")
-    if "hours" not in features_dict:
-        raise HTTPException(status_code=400, detail="Missing 'hours' in features.")
+    
+    # Check required features
+    required_features = ["hours"]
+    for feature in required_features:
+        if feature not in features_dict:
+            raise HTTPException(status_code=400, detail=f"Missing '{feature}' in features.")
 
     try:
-        # Coba buat DataFrame Spark dengan satu baris
-        # Skema harus cocok dengan apa yang diharapkan model (setelah VectorAssembler)
-        # Di sini kita asumsikan assembler hanya menggunakan 'hours_numeric'
-        # dan pipeline model menangani assembling.
+        # Create enhanced features with defaults for missing optional features
+        hours = features_dict["hours"]
+        price = features_dict.get("price", 15.0)  # Default to median price
+        positive_ratio = features_dict.get("positive_ratio", 75.0)  # Default to reasonable rating
+        user_reviews = features_dict.get("user_reviews", 100.0)  # Default review count
         
-        # Kolom input untuk VectorAssembler di training M1/M2 adalah "hours_numeric"
-        # Data yang masuk ke API adalah {"features": {"hours": H}}
-        # Jadi kita perlu membuat DataFrame dengan kolom "hours_numeric"
+        # Calculate derived features (same as training)
+        price_category = 1.0 if price <= 9.99 else (2.0 if price <= 29.99 else 3.0)
+        quality_score = positive_ratio * (user_reviews / 1000.0)
         
-        schema = StructType([StructField("hours_numeric", FloatType(), True)])
-        data_for_prediction = [(features_dict["hours"],)]
+        # Create DataFrame with enhanced feature schema
+        schema = StructType([
+            StructField("hours_numeric", FloatType(), True),
+            StructField("price_numeric", FloatType(), True),
+            StructField("positive_ratio_numeric", FloatType(), True),
+            StructField("quality_score", FloatType(), True),
+            StructField("price_category", FloatType(), True)
+        ])
+        
+        data_for_prediction = [(hours, price, positive_ratio, quality_score, price_category)]
         
         df_to_predict = spark_session.createDataFrame(data_for_prediction, schema=schema)
 
