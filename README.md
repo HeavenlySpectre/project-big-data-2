@@ -3,9 +3,9 @@
 Sistem ini dibuat untuk mensimulasikan stream dari data proses untuk model Machine Learning hingga deployment API. Didesain khusus untuk Sistem Rekomendasi Game Steam.
 
 Dikerjakan Oleh:
-- Athalla Barka Fadhil
-- Kevin Anugerah Faza
-- Azza Farichi Tjahjono
+- Athalla Barka Fadhil - 5027231018
+- Kevin Anugerah Faza - 5027231027
+- Azza Farichi Tjahjono - 5027231071
 
 ## Tech Stack
 - Apache Kafka (data streaming)
